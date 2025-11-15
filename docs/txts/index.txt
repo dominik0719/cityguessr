@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Marton Dominik">
+  <meta name="description" content="Interactive city map quiz">
+  <meta name="keywords" content="city quiz, map quiz, geography, interactive quiz">
+
+  <title>City Map Quiz</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="regionPicker">
+  <h1>Select a Region</h1>
+  <p>Find quiz:</p>
+  <input type="text" id="search" placeholder="Type region name...">
+  <ul id="regionList"></ul>
+
+  <div class="buttonGroup">
+    <button id="openInfoButton">Info</button>
+    <button id="openFormButton">Give Feedback / Open Form</button> 
+  </div>
+</div>
+
+<script>
+const regions = ["World", "France", "Italy", "Spain"];
+const regionListEl = document.getElementById("regionList");
+
+// Alphabetical order, world first
+const world = regions.shift();
+regions.sort();
+regions.unshift(world);
+
+function displayRegions(filter = "") {
+  regionListEl.innerHTML = "";
+  regions
+    .filter(r => r.toLowerCase().includes(filter.toLowerCase()))
+    .forEach(r => {
+      const li = document.createElement("li");
+      li.textContent = r;
+      li.style.cursor = "pointer";
+      li.addEventListener("click", () => {
+        window.location.href = `quiz.html?region=${r.toLowerCase()}`;
+      });
+      regionListEl.appendChild(li);
+    });
+}
+displayRegions();
+
+document.getElementById("search").addEventListener("input", e => displayRegions(e.target.value));
+
+// Info page
+document.getElementById("openInfoButton").addEventListener("click", () => {
+  window.location.href = "info.html";
+});
+
+// Feedback form
+document.getElementById("openFormButton").addEventListener("click", () => {
+  window.location.href = "form.html";
+});
+
+
+</script>
+
+</body>
+</html>
