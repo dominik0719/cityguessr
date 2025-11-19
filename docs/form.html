@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Marton Dominik">
+  <meta name="description" content="City Quiz Feedback Form">
+  <meta name="keywords" content="feedback, form, city quiz">
+
+  <title>City Quiz Feedback</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="formContainer">
+  <h1>City Quiz Feedback Form</h1>
+
+  <form id="feedbackForm" novalidate>
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" placeholder="Your name" required>
+
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" placeholder="Your email" required>
+
+    <label for="age">Age *</label>
+    <input type="number" id="age" name="age" placeholder="Your age" min="5" max="120" required>
+
+    <label for="gender">Gender *</label>
+    <select id="gender" name="gender" required>
+      <option value="">Select...</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="improve">How could we improve the quiz? *</label>
+    <textarea id="improve" name="improve" placeholder="Your suggestions" required></textarea>
+
+    <fieldset>
+      <legend>Difficulty *</legend>
+      <label class="radioLabel">
+        <input type="radio" id="easy" name="difficulty" value="easy" required>
+        Easy
+      </label>
+      <label class="radioLabel">
+        <input type="radio" id="medium" name="difficulty" value="medium">
+        Medium
+      </label>
+      <label class="radioLabel">
+        <input type="radio" id="hard" name="difficulty" value="hard">
+        Hard
+      </label>
+    </fieldset>
+
+    <label for="favorite">Favorite region *</label>
+    <input type="text" id="favorite" name="favorite" placeholder="e.g., Italy" required>
+
+    <label for="lastPlayed">When did you last play the quiz? *</label>
+    <input type="date" id="lastPlayed" name="lastPlayed" required>
+
+    <label for="rating">Rate the quiz (1-10) *</label>
+    <div class="sliderContainer">
+      <input type="range" id="rating" name="rating" min="1" max="10" value="5" required>
+      <span id="ratingValue">5</span>
+    </div>
+
+    <label for="subscribe">
+      <input type="checkbox" id="subscribe" name="subscribe" required>
+      Subscribe to updates? *
+    </label>
+
+    <div class="buttonRow">
+      <button type="submit">Submit</button>
+      <button type="button" id="backButton">Back to Quizzes</button>
+    </div>
+
+  </form>
+</div>
+
+<script src="form.js"></script>
+</body>
+</html>
