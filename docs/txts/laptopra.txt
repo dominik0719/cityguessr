@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding for correct text rendering -->
+  <meta charset="UTF-8" />
+  <!-- Responsive design for different screen sizes -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Author and SEO information -->
+  <meta name="author" content="Marton Dominik" />
+  <meta name="description" content="Interactive city map quiz — choose a region and start playing!" />
+  <meta name="keywords" content="city quiz, map quiz, geography game, interactive quiz" />
+
+  <!-- Page title -->
+  <title>City Map Quiz</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <!-- Link to external CSS stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main id="regionPicker">
+  <!-- Main heading -->
+  <h1>Choose a Region</h1>
+  <p>Start typing to search:</p>
+
+  <!-- Input for searching regions -->
+  <input 
+    type="text" 
+    id="search" 
+    placeholder="Search regions…" 
+    aria-label="Search regions"
+  />
+
+  <!-- List that will hold region items dynamically -->
+  <ul id="regionList" aria-label="Region list"></ul>
+
+  <!-- Button group for navigation -->
+  <div class="buttonGroup">
+    <!-- Button to open information page -->
+    <button id="openInfoButton" class="secondary">Info</button>
+    <!-- Button to open feedback form -->
+    <button id="openFormButton" class="primary">Feedback / Form</button>
+  </div>
+</main>
+
+<!-- Link to JavaScript for dynamic behavior -->
+<script src="index.js"></script>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="author" content="Marton Dominik" />
+  <meta name="description" content="Play the interactive city map quiz and test your geography knowledge!" />
+  <meta name="keywords" content="map quiz, geography game, city locator" />
+
+  <title>City Map Quiz – Play</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<main id="quizContainer">
+
+  <header id="infoBar">
+    <button id="backButton">← Back</button>
+    <div id="question" class="infoBadge">Loading…</div>
+    <div id="progress" class="infoBadge">Question: 0/0</div>
+    <div id="score" class="infoBadge">Correct: 0/0</div>
+    <div id="status"></div>
+  </header>
+
+  <section id="mapWrapper">
+    <div id="map"></div>
+  </section>
+
+</main>
+
+<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+<script src="quiz.js"></script>
+
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Marton Dominik">
+  <meta name="description" content="Information about the City Map Quiz">
+  <meta name="keywords" content="city quiz, info, instructions, cities">
+  <title>City Quiz Info</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="infoContainer">
+  <h1>About the City Map Quiz</h1>
+
+  <section>
+    <h2>How to Play</h2>
+    <p>
+      The City Map Quiz challenges you to find cities on an interactive map.
+      Select a region from the home page, then try to locate the cities as quickly and accurately as possible.
+      You can only make three attempts per city. After that, the correct location will be revealed.
+    </p>
+  </section>
+
+  <section>
+    <h2>About the Cities</h2>
+    <p>
+      The quiz includes cities from different regions, such as Europe and the World. 
+      Each city has its coordinates stored in the quiz database, so you can test your geography knowledge interactively.
+    </p>
+  </section>
+
+  <section>
+    <h2>Scoring & Feedback</h2>
+    <p>
+      You earn points for correct guesses, and you can track your progress through the quiz.
+      Don't forget to give feedback using the <a href="form.html">Feedback Form</a> to help improve the quiz!
+    </p>
+  </section>
+
+  <button onclick="window.location.href='index.html'">Back to Home</button>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Marton Dominik">
+  <meta name="description" content="City Quiz Feedback Form">
+  <meta name="keywords" content="feedback, form, city quiz">
+
+  <title>City Quiz Feedback</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="formContainer">
+  <h1>City Quiz Feedback Form</h1>
+
+  <form id="feedbackForm" novalidate>
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" placeholder="Your name" required>
+
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" placeholder="Your email" required>
+
+    <label for="age">Age *</label>
+    <input type="number" id="age" name="age" placeholder="Your age" min="5" max="120" required>
+
+    <label for="gender">Gender *</label>
+    <select id="gender" name="gender" required>
+      <option value="">Select...</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="improve">How could we improve the quiz? *</label>
+    <textarea id="improve" name="improve" placeholder="Your suggestions" required></textarea>
+
+    <fieldset>
+      <legend>Difficulty *</legend>
+      <label class="radioLabel">
+        <input type="radio" id="easy" name="difficulty" value="easy" required>
+        Easy
+      </label>
+      <label class="radioLabel">
+        <input type="radio" id="medium" name="difficulty" value="medium">
+        Medium
+      </label>
+      <label class="radioLabel">
+        <input type="radio" id="hard" name="difficulty" value="hard">
+        Hard
+      </label>
+    </fieldset>
+
+    <label for="favorite">Favorite region *</label>
+    <input type="text" id="favorite" name="favorite" placeholder="e.g., Italy" required>
+
+    <label for="lastPlayed">When did you last play the quiz? *</label>
+    <input type="date" id="lastPlayed" name="lastPlayed" required>
+
+    <label for="rating">Rate the quiz (1-10) *</label>
+    <div class="sliderContainer">
+      <input type="range" id="rating" name="rating" min="1" max="10" value="5" required>
+      <span id="ratingValue">5</span>
+    </div>
+
+    <label for="subscribe">
+      <input type="checkbox" id="subscribe" name="subscribe" required>
+      Subscribe to updates? *
+    </label>
+
+    <div class="buttonRow">
+      <button type="submit">Submit</button>
+      <button type="button" id="backButton">Back to Quizzes</button>
+    </div>
+
+  </form>
+</div>
+
+<script src="form.js"></script>
+</body>
+</html>
+
+
+
+
+
+// -------------------------
+// DOM ELEMENTS
+// -------------------------
+const form = document.getElementById('feedbackForm');
+const rating = document.getElementById('rating');
+const ratingValue = document.getElementById('ratingValue');
+const backButton = document.getElementById('backButton');
+
+// -------------------------
+// INITIALIZE SLIDER
+// -------------------------
+ratingValue.textContent = rating.value;
+
+rating.addEventListener('input', () => {
+  ratingValue.textContent = rating.value;
+});
+
+// -------------------------
+// BACK TO QUIZZES BUTTON
+// -------------------------
+backButton.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
+
+// -------------------------
+// FORM SUBMISSION
+// -------------------------
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  let valid = true;
+  const messages = [];
+
+  // Name validation
+  const name = document.getElementById('name');
+  if (!name.value.trim()) {
+    valid = false;
+    messages.push("Name is required.");
+  }
+
+  // Email validation
+  const email = document.getElementById('email');
+  if (!email.value.trim() || !/\S+@\S+\.\S+/.test(email.value)) {
+    valid = false;
+    messages.push("Valid email is required.");
+  }
+
+  // Age validation
+  const age = document.getElementById('age');
+  if (!age.value || age.value < 5 || age.value > 120) {
+    valid = false;
+    messages.push("Valid age (5-120) is required.");
+  }
+
+  // Gender validation
+  const gender = document.getElementById('gender');
+  if (!gender.value) {
+    valid = false;
+    messages.push("Please select your gender.");
+  }
+
+  // Suggestions validation
+  const improve = document.getElementById('improve');
+  if (!improve.value.trim()) {
+    valid = false;
+    messages.push("Please give suggestions for improvement.");
+  }
+
+  // Difficulty validation
+  const difficulty = form.querySelector('input[name="difficulty"]:checked');
+  if (!difficulty) {
+    valid = false;
+    messages.push("Please select difficulty.");
+  }
+
+  // Favorite region validation
+  const favorite = document.getElementById('favorite');
+  if (!favorite.value.trim()) {
+    valid = false;
+    messages.push("Please enter your favorite region.");
+  }
+
+  // Last played validation
+  const lastPlayed = document.getElementById('lastPlayed');
+  if (!lastPlayed.value) {
+    valid = false;
+    messages.push("Please select when you last played the quiz.");
+  }
+
+  // Rating validation
+  if (!rating.value) {
+    valid = false;
+    messages.push("Please rate the quiz.");
+  }
+
+  // Subscribe checkbox validation
+  const subscribe = document.getElementById('subscribe');
+  if (!subscribe.checked) {
+    valid = false;
+    messages.push("You must agree to subscribe.");
+  }
+
+  // If invalid, show alert
+  if (!valid) {
+    alert(messages.join("\n"));
+    return;
+  }
+
+  // Successful submission
+  alert("Thank you for your feedback!");
+  form.reset();
+  ratingValue.textContent = rating.value; // reset slider display
+});
+
+
+
+
+
+
+const regions = ["World", "France", "Italy", "Spain"];
+// Get the HTML element that will hold the region list
+const regionListEl = document.getElementById("regionList");
+
+// Ensure "World" is always first in the list
+const world = regions.shift(); // remove first element
+regions.sort(); // alphabetically sort remaining regions
+regions.unshift(world); // add "World" back to the start
+
+// Function to display regions in the UI, optionally filtering by search
+function displayRegions(filter = "") {
+  // Clear existing list
+  regionListEl.innerHTML = "";
+
+  // Filter regions based on search input
+  regions
+    .filter(r => r.toLowerCase().includes(filter.toLowerCase()))
+    .forEach(r => {
+      // Create a new list item for each region
+      const li = document.createElement("li");
+      li.textContent = r;
+      li.tabIndex = 0; // Make focusable for keyboard navigation
+      li.setAttribute("role", "button"); // Accessibility: treat as a button
+
+      // Click event: navigate to quiz page for the selected region
+      li.addEventListener("click", () => {
+        window.location.href = `quiz.html?region=${r.toLowerCase()}`;
+      });
+
+      // Keyboard accessibility: allow "Enter" key to select
+      li.addEventListener("keypress", e => {
+        if (e.key === "Enter") li.click();
+      });
+
+      // Add list item to the region list
+      regionListEl.appendChild(li);
+    });
+}
+
+// Initial load: display all regions
+displayRegions();
+
+// ---------------------------
+// SEARCH FILTER
+// ---------------------------
+
+// Listen for user input in the search box and filter the list in real-time
+document.getElementById("search").addEventListener("input", e => {
+  displayRegions(e.target.value);
+});
+
+// ---------------------------
+// BUTTONS
+// ---------------------------
+
+// Open information page when Info button is clicked
+document.getElementById("openInfoButton").addEventListener("click", () => {
+  window.location.href = "info.html";
+});
+
+// Open feedback form when Form button is clicked
+document.getElementById("openFormButton").addEventListener("click", () => {
+  window.location.href = "form.html";
+});
+
+
+
+
+let map;                     // Map object from MapLibre
+let cities = [];              // All cities loaded from JSON
+let remainingCities = [];     // Cities that haven't been asked yet
+let currentCity = null;       // City currently being asked
+let answerMarker = null;      // Marker shown when user guesses wrong 3 times
+let attempts = 0;             // How many tries the user has made for current city
+let correctCount = 0;         // Number of correct answers
+let questionCount = 0;        // Number of questions shown so far
+let quizLocked = false;       // Prevent clicks while revealing city
+let sessionEnded = false;     // Track if quiz is finished
+let totalQuestions = 10;      // Total questions for this session
+
+// finding HTML elements from the page and storing them in JavaScript variables
+const quizContainer = document.getElementById('quizContainer');
+const statusEl = document.getElementById('status');
+const backButton = document.getElementById('backButton');
+
+
+// tells it to make the current page index.html when "Back" button is clicked
+// .addEventListener() is a method that listens for events on that element.
+// 'click' means we are listening for a click event
+// () => { ... }: arrow function, inside the { ... } will run when the button is clicked.
+backButton.addEventListener('click', () => {
+  window.location.href = "index.html";
+});
+
+
+// GET REGION FROM URL
+// Read the "region" parameter from the URL, default to "world"
+// window.location = the object representing the current page URL.
+// .search = the string part of the URL, which comes after the ?
+// quiz.html?region=france -> ?region=france
+// urlParams.get("region")  // returns "france"
+// urlParams: "python dictionary: key-value pairs"
+// URLSearchParams: in-built class (needs to be called with new)
+const urlParams = new URLSearchParams(window.location.search);
+const region = urlParams.get("region");
+
+
+// START QUIZ
+function startQuiz(region) {
+  // set JSON file for the chosen region
+  const citiesFile = `cities/${region}.json`;
+
+
+  // Map initial center and zoom for each region
+  // "python dictionary key:world,france... value: center[longitude, latitude], zoom"
+  const regionSettings = {
+    world: { center: [0, 20], zoom: 2 },
+    france: { center: [2.2137, 46.2276], zoom: 5 },
+    spain: { center: [-3.7038, 40.4168], zoom: 5 },
+    italy: { center: [12.4964, 41.9028], zoom: 5 }
+  };
+  const settings = regionSettings[region]
+
+
+  // Create the interactive map
+  // maplibregl.Map is a class provided by the MapLibre library.
+  // container: 'map' looks for <div id="map"></div>
+  // center: settings.center sets the starting position of the map. (from earlier code)
+  // larger numbers = closer zoom
+  map = new maplibregl.Map({
+    container: 'map',
+    style: 'https://api.maptiler.com/maps/019a8239-05ae-74c9-835e-bb2308959812/style.json?key=Log0g5gRFj2BYhuEUZho',
+    center: settings.center,
+    zoom: settings.zoom,
+    doubleClickZoom: false
+  });
+
+  // Load cities from JSON
+  // fetch: finds the file, then downloads and returns the contents
+  // .then(): “When the previous thing is done, run this.”
+  // res: response object
+  // res.json():reads the JSON text and turns it into a real JavaScript array
+  // temporarly returns data (as a the array) which we in the first line make cities be equal to
+  /* [...]: takes all elements from the cities array and creates a new array 
+  with the same items. (remainingCities = cities: Any change to remainingCities 
+  would also change the cities variable.*/ 
+  // if region is "world": totalQuestions = 30 else totalQuestions = 10
+  fetch(citiesFile)
+    .then(res => res.json())
+    .then(data => {
+      cities = data;                     
+      remainingCities = [...cities];     
+      totalQuestions = region === "world" ? 30 : 10;
+      correctCount = 0;
+      questionCount = 0;
+      sessionEnded = false;
+      nextQuestion();   // Start the first question
+    });
+
+  // .on() is a method that listens for events (for clicks in this case) on the map
+  /* handleMapClick (inbuilt function) receives an event object "e" that contains info 
+  about the click including coordinates: console.log(e.lngLat): 
+  the longitude and latitude where the user clicked*/
+  map.on('click', handleMapClick);
+}
+
+
+// SHOW NEXT QUESTION
+function nextQuestion() {
+  // Remove the red answer marker if it exists
+  if (answerMarker) {
+    answerMarker.remove();
+    answerMarker = null;
+  }
+
+  attempts = 0;           // Reset attempts for new city
+  quizLocked = false;     // Allow map clicks again
+
+  // Check if quiz is finished
+  if (remainingCities.length == 0) {
+    if (!sessionEnded) {
+      sessionEnded = true;
+      showResetButton();
+    }
+    document.getElementById('question').textContent = "Quiz Finished!";
+    return; // to finish the function so it doesnt try to ask next question
+  }
+
+  // Pick a random city from remaining cities
+  /* .splice() is an array method that: removes items from an array 
+  and returns an array of the removed items like {name: "Paris", lat: 48.8566, lng: 2.3522 } */
+  const randomIndex = Math.floor(Math.random() * remainingCities.length);
+  currentCity = remainingCities.splice(randomIndex, 1)[0];
+  questionCount++;
+
+  // Update score and show the city name
+  updateScore();
+  document.getElementById('question').textContent = `Find: ${currentCity.name}`;
+}
+
+// UPDATE SCORE AND PROGRESS
+function updateScore() {
+  document.getElementById('score').textContent = `Correct: ${correctCount}/${totalQuestions}`;
+  document.getElementById('progress').textContent = `Question: ${questionCount}/${totalQuestions}`;
+}
+
+// SHOW RESET BUTTON
+function showResetButton() {
+  const resetBtn = document.createElement('button');
+  resetBtn.textContent = "Try Again";
+
+  // When clicked, restart the quiz
+  resetBtn.addEventListener('click', () => {
+    remainingCities = [...cities];
+    questionCount = 0;
+    correctCount = 0;
+    sessionEnded = false;
+    resetBtn.remove();
+    nextQuestion();
+  });
+
+  // adds the button to the page inside the quizContainer div, so the user can see it and click it.
+  quizContainer.appendChild(resetBtn);
+}
+
+
+// HANDLE MAP CLICKS
+function handleMapClick(e) {
+  if (quizLocked || sessionEnded) return; // Ignore clicks if locked
+
+  // Get clicked coordinates
+  const clickedLngLat = [e.lngLat.lng, e.lngLat.lat];
+  const cityLngLat = [currentCity.lng, currentCity.lat];
+
+  // Calculate distance to city
+  const distance = getDistance(clickedLngLat, cityLngLat);
+  const hitboxRadius = 40000; // 40 km
+
+  if (distance < hitboxRadius) {
+    // Correct guess
+    if (attempts === 0) correctCount++; // Count only first attempt as correct
+    statusEl.style.color = 'green';
+    statusEl.textContent = `You found ${currentCity.name}.`;
+    nextQuestion();
+  } else {
+    // Wrong guess
+    attempts++;
+    statusEl.style.color = 'red';
+
+    if (attempts >= 3) {
+      revealCityPin(cityLngLat); // Reveal correct location after 3 wrong attempts
+    } else {
+      statusEl.textContent = `❌ Wrong! Try again. (${attempts}/3)`;
+    }
+  }
+  updateScore();
+}
+
+
+// CALCULATE DISTANCE BETWEEN TWO POINTS
+function getDistance([lng1, lat1], [lng2, lat2]) {
+  const earthRadius = 6371000; // in meters
+
+  // Convert degrees to radians
+  function toRadians(degrees) {
+    return degrees * Math.PI / 180;
+  }
+
+  const lat1Rad = toRadians(lat1);
+  const lat2Rad = toRadians(lat2);
+  const deltaLatRad = toRadians(lat2 - lat1);
+  const deltaLngRad = toRadians(lng2 - lng1);
+
+  // Haversine formula
+  const a = Math.sin(deltaLatRad / 2) * Math.sin(deltaLatRad / 2) +
+            Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+            Math.sin(deltaLngRad / 2) * Math.sin(deltaLngRad / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const distance = earthRadius * c; // distance in meters
+  return distance;
+}
+
+
+// REVEAL CITY PIN AFTER 3 WRONG ATTEMPTS
+function revealCityPin(cityLngLat) {
+  if (answerMarker) return;
+
+  quizLocked = true;
+
+  // Add red marker to show correct city
+  answerMarker = new maplibregl.Marker({ color: 'red' })
+  answerMarker.setLngLat(cityLngLat)
+  answerMarker.addTo(map);
+
+  statusEl.textContent = `❌ Wrong! The city pin is revealed, click it to continue.`;
+
+  // Clicking the marker removes it and goes to next question
+  // { once: true } means the function will run only once, then automatically remove itself
+  answerMarker.getElement().addEventListener('click', function onPinClick(ev) {
+    ev.stopPropagation(); // stops the clicks from reaching the map listener
+    answerMarker.remove();
+    answerMarker = null;
+    attempts = 0;
+    quizLocked = false;
+    statusEl.textContent = '';
+    nextQuestion();
+  }, { once: true });
+}
+
+
+// START QUIZ ON PAGE LOAD
+startQuiz(region);
+
+
+
+/* ----------------- General Styles ----------------- */
+body {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+h1 { 
+  margin-bottom: 20px; 
+}
+
+input[type="text"] {
+  padding: 10px;
+  width: 250px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* ----------------- Region List ----------------- */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 20px auto;
+  text-align: center;
+}
+
+#regionList li {
+  padding: 12px 10px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  font-size: 16px;
+  cursor: pointer;
+  width: 250px;  /* same as buttons */
+  margin-left: auto;
+  margin-right: auto;
+  transition: background 0.2s;
+}
+
+#regionList li:hover {
+  background-color: #ddd;
+}
+
+/* ----------------- Buttons ----------------- */
+.buttonGroup {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  align-items: center;
+  gap: 10px;
+}
+
+.buttonGroup button,
+#openInfoButton,
+#openFormButton {
+  padding: 12px 0;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  width: 250px; /* same as list items */
+  transition: background 0.2s;
+}
+
+.buttonGroup button:hover,
+#openInfoButton:hover,
+#openFormButton:hover {
+  background-color: #ddd;
+}
+
+/* ----------------- Quiz Info Bar ----------------- */
+#infoBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 80%;
+  margin: 0 auto 10px auto;
+}
+
+#backButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #f0f0f0;
+}
+#backButton:hover {
+  background-color: #ddd;
+}
+
+#question, #progress, #score {
+  background: rgba(255,255,255,0.9);
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  display: inline-block;
+}
+
+#status {
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 180px;
+}
+
+/* ----------------- Map ----------------- */
+#mapWrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#map {
+  height: 600px;
+  width: 100%;
+  border: 2px solid #333;
+  cursor: default;
+}
+
+.mapboxgl-canvas,
+.maplibregl-canvas {
+  cursor: default !important;
+}
+
+/* ----------------- Form Styles ----------------- */
+#formContainer {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+#formContainer h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#formContainer form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#formContainer form input[type="text"],
+#formContainer form input[type="email"],
+#formContainer form input[type="number"],
+#formContainer form textarea,
+#formContainer form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  box-sizing: border-box;
+}
+
+#formContainer form textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+#formContainer form fieldset {
+  border: 1px solid #333;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+#formContainer form legend {
+  font-weight: bold;
+}
+
+#formContainer form input[type="radio"],
+#formContainer form input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#lastPlayed {
+  margin-bottom: 20px;
+}
+
+.radioLabel {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.radioLabel input[type="radio"] {
+  margin-right: 5px;
+}
+
+#formContainer form button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
+#formContainer form button:hover {
+  background-color: #ddd;
+}
+
+/* ----------------- Info Page ----------------- */
+#infoContainer {
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+}
+
+#infoContainer h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#infoContainer section {
+  margin-bottom: 20px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#infoContainer section h2 {
+  margin-top: 0;
+}
+
+#infoContainer button {
+  display: block;
+  margin: 20px auto 0 auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+#infoContainer button:hover {
+  background-color: #ddd;
+}
+
+/* ----------------- Responsive ----------------- */
+@media (max-width: 1024px) {
+  #mapWrapper, #infoBar {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  #infoBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #backButton, #question, #progress, #score, #status {
+    width: 100%;
+    text-align: left;
+  }
+
+  #map {
+    height: 400px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  ul {
+    max-width: 100%;
+  }
+
+  #formContainer { width: 95%; }
+  #formContainer form button { width: 100%; margin-top: 10px; }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #regionList li,
+  .buttonGroup button,
+  #openInfoButton,
+  #openFormButton {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  #map {
+    height: 300px;
+  }
+
+  #question, #progress, #score, #status {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  #backButton {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}

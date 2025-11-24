@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="author" content="Marton Dominik" />
+  <meta name="description" content="Interactive city map quiz — choose a region and start playing!" />
+  <meta name="keywords" content="city quiz, map quiz, geography game, interactive quiz" />
+
+  <title>City Map Quiz</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main id="regionPicker">
+  <h1>Choose a Region</h1>
+  <p>Start typing to search:</p>
+
+
+  <input 
+    type="text" 
+    id="search" 
+    placeholder="Search regions…" 
+    aria-label="Search regions"
+  />
+
+  <ul id="regionList" aria-label="Region list"></ul>
+
+  <div class="buttonGroup">
+    <button id="openInfoButton">Info</button>
+    <button id="openFormButton">Feedback / Form</button>
+  </div>
+</main>
+
+<script src="index.js"></script>
+</body>
+</html>

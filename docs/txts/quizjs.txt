@@ -1,0 +1,181 @@
+// -------------------------
+// QUIZ VARIABLES
+// -------------------------
+let map, cities = [], remainingCities = [], currentCity = null, answerMarker = null;
+let attempts = 0, correctCount = 0, questionCount = 0;
+let quizLocked = false, sessionEnded = false;
+let totalQuestions = 10;
+
+const quizContainer = document.getElementById('quizContainer');
+const statusEl = document.getElementById('status');
+const backButton = document.getElementById('backButton');
+
+// -------------------------
+// BACK BUTTON
+// -------------------------
+backButton.addEventListener('click', () => {
+  window.location.href = "index.html";
+});
+
+// -------------------------
+// GET REGION FROM URL
+// -------------------------
+const urlParams = new URLSearchParams(window.location.search);
+const region = urlParams.get("region") || "world";
+
+// -------------------------
+// START QUIZ
+// -------------------------
+function startQuiz(region) {
+  const citiesFile = `cities/${region}.json`;
+
+  const regionSettings = {
+    world: { center: [0, 20], zoom: 2 },
+    france: { center: [2.2137, 46.2276], zoom: 5 },
+    spain: { center: [-3.7038, 40.4168], zoom: 5 },
+    italy: { center: [12.4964, 41.9028], zoom: 5 }
+  };
+  const settings = regionSettings[region] || regionSettings.world;
+
+ map = new maplibregl.Map({
+  container: 'map',
+  style: 'https://api.maptiler.com/maps/019a8239-05ae-74c9-835e-bb2308959812/style.json?key=Log0g5gRFj2BYhuEUZho',
+  center: settings.center,
+  zoom: settings.zoom,
+  doubleClickZoom: false  // <-- disables zoom on double-click
+});
+
+  fetch(citiesFile)
+    .then(res => res.json())
+    .then(data => {
+      cities = data;
+      remainingCities = [...cities];
+      totalQuestions = region === "world" ? 30 : 10;
+      correctCount = 0;
+      questionCount = 0;
+      sessionEnded = false;
+      nextQuestion();
+    });
+
+  map.on('click', handleMapClick);
+}
+
+// -------------------------
+// NEXT QUESTION
+// -------------------------
+function nextQuestion() {
+  if (answerMarker) {
+    answerMarker.remove();
+    answerMarker = null;
+  }
+
+  attempts = 0;
+  quizLocked = false;
+  statusEl.textContent = '';
+
+  if (remainingCities.length === 0 || questionCount >= totalQuestions) {
+    if (!sessionEnded) {
+      sessionEnded = true;
+      showResetButton();
+    }
+    document.getElementById('question').textContent = "Quiz Finished!";
+    return;
+  }
+
+  const randomIndex = Math.floor(Math.random() * remainingCities.length);
+  currentCity = remainingCities.splice(randomIndex, 1)[0]; // remove from remaining
+  questionCount++;
+  updateScore();
+  document.getElementById('question').textContent = `Find: ${currentCity.name}`;
+}
+
+// -------------------------
+// UPDATE SCORE
+// -------------------------
+function updateScore() {
+  document.getElementById('score').textContent = `Correct: ${correctCount}/${totalQuestions}`;
+  document.getElementById('progress').textContent = `Question: ${questionCount}/${totalQuestions}`;
+}
+
+// -------------------------
+// RESET BUTTON
+// -------------------------
+function showResetButton() {
+  const resetBtn = document.createElement('button');
+  resetBtn.textContent = "Try Again";
+  resetBtn.style.marginTop = "10px";
+  resetBtn.style.padding = "10px 20px";
+  resetBtn.style.fontSize = "16px";
+
+  resetBtn.addEventListener('click', () => {
+    remainingCities = [...cities];
+    questionCount = 0;
+    correctCount = 0;
+    sessionEnded = false;
+    quizContainer.removeChild(resetBtn);
+    nextQuestion();
+  });
+
+  quizContainer.appendChild(resetBtn);
+}
+
+// -------------------------
+// HANDLE MAP CLICKS
+// -------------------------
+function handleMapClick(e) {
+  if (quizLocked || sessionEnded) return;
+
+  const clickedLngLat = [e.lngLat.lng, e.lngLat.lat];
+  const cityLngLat = [currentCity.lng, currentCity.lat];
+
+  const R = 6371000;
+  function toRad(deg) { return deg * Math.PI / 180; }
+  const φ1 = toRad(clickedLngLat[1]);
+  const φ2 = toRad(cityLngLat[1]);
+  const Δφ = toRad(cityLngLat[1] - clickedLngLat[1]);
+  const Δλ = toRad(cityLngLat[0] - clickedLngLat[0]);
+  const a = Math.sin(Δφ / 2) ** 2 + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c;
+
+  const hitboxRadius = 40000;
+
+  if (distance < hitboxRadius) {
+    if (attempts === 0) correctCount++;
+    statusEl.style.color = 'green';
+    statusEl.textContent = `✅ Correct! You found ${currentCity.name}.`;
+    nextQuestion();
+  } else {
+    attempts++;
+    statusEl.style.color = 'red';
+    if (attempts >= 3) {
+      if (!answerMarker) {
+        quizLocked = true;
+        answerMarker = new maplibregl.Marker({ color: 'red' })
+          .setLngLat(cityLngLat)
+          .addTo(map);
+
+        statusEl.textContent = `❌ Wrong! The city pin is revealed. Click the red pin to continue.`;
+
+        answerMarker.getElement().addEventListener('click', function onPinClick(ev) {
+          ev.stopPropagation();
+          answerMarker.remove();
+          answerMarker = null;
+          attempts = 0;
+          quizLocked = false;
+          statusEl.textContent = '';
+          nextQuestion();
+        }, { once: true });
+      }
+    } else {
+      statusEl.textContent = `❌ Wrong! Try again. (${attempts}/3)`;
+    }
+  }
+
+  updateScore();
+}
+
+// -------------------------
+// START QUIZ ON PAGE LOAD
+// -------------------------
+startQuiz(region);

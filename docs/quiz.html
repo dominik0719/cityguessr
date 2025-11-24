@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="author" content="Marton Dominik" />
+  <meta name="description" content="Play the interactive city map quiz and test your geography knowledge!" />
+  <meta name="keywords" content="map quiz, geography game, city locator" />
+
+  <title>City Map Quiz – Play</title>
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<main id="quizContainer">
+
+  <header id="infoBar"> 
+    <button id="backButton">← Back</button>
+    <div id="question" class="infoBadge">Loading…</div>
+    <div id="progress" class="infoBadge">Question: 0/0</div>
+    <div id="score" class="infoBadge">Correct: 0/0</div>
+    <div id="status"></div>
+  </header>
+
+
+  <section id="mapWrapper"> 
+    <div id="map"></div>
+  </section>
+
+</main>
+
+<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+<script src="quiz.js"></script>
+
+</body>
+</html>
